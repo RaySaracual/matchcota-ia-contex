@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "complianceRules": [
+    {
+      "id": "python-backend-rail",
+      "section": "contracts",
+      "forbiddenPatterns": ["asp\\.net", "dotnet\\s+web\\s+api", "iis\\s+web\\s+forms"],
+      "message": "Spec propone backend .NET fuera de rieles para un proyecto alineado a Python."
+    }
+  ]
+}

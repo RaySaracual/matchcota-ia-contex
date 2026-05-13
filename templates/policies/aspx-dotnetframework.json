@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "complianceRules": [
+    {
+      "id": "aspx-dotnetframework-backend-rail",
+      "section": "contracts",
+      "forbiddenPatterns": ["django", "flask", "fastapi"],
+      "message": "Spec propone backend Python fuera de rieles para un proyecto ASPX/.NET Framework."
+    },
+    {
+      "id": "aspx-dotnetframework-frontend-rail",
+      "section": "contracts",
+      "forbiddenPatterns": ["react", "vue", "next\\.js"],
+      "message": "Spec propone frontend React/Vue/Next fuera de rieles para un proyecto ASPX/.NET Framework."
+    }
+  ]
+}

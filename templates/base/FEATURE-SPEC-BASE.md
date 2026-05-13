@@ -1,7 +1,7 @@
 # TEMPLATE BASE - SPEC-DRIVEN DEVELOPMENT
 
-Version: 2.0
-Fecha: 15-04-2026
+Version: 3.0
+Fecha: 12-05-2026
 Estado: Activo
 
 ## 0) Politica obligatoria
@@ -23,6 +23,7 @@ Regla de control:
 - Responsable funcional: <NOMBRE>
 - Responsable tecnico: <NOMBRE>
 - Fecha de solicitud: <DD-MM-YYYY>
+- Estado del spec: <Borrador | En revision | Aprobado>
 
 ## 2) Problema y objetivo
 
@@ -63,9 +64,9 @@ Regla de control:
 
 - RNF-SEG-01: OWASP Top 10 + OWASP ASVS
 - RNF-SEG-02: CWE Top 25
-- RNF-CAL-01: SonarQube Quality Gate
-- RNF-DEP-01: CVE/NVD
-- RNF-API-01: OpenAPI
+- RNF-CAL-01: Quality Gate de codigo
+- RNF-DEP-01: CVE/NVD sin hallazgos criticos
+- RNF-API-01: OpenAPI (si aplica)
 - RNF-TST-01: Cobertura segun politica interna
 - RNF-ACC-01 (si UI): WCAG 2.2 AA
 
@@ -107,7 +108,21 @@ Para cada RNF:
 | RN-01 | | | |
 | RNF-SEG-01 | | | |
 
-## 9) Evidencia minima y cierre
+## 9) Riesgos, supuestos y decisiones
+
+### 9.1 Riesgos
+- R-01:
+- R-02:
+
+### 9.2 Supuestos
+- S-01:
+- S-02:
+
+### 9.3 Decisiones
+- D-01:
+- D-02:
+
+## 10) Evidencia minima y cierre
 
 - PR checklist
 - Build
@@ -119,7 +134,7 @@ Para cada RNF:
 Estado:
 - Completa | Diferida (con plan)
 
-## 10) GO/NO-GO para iniciar desarrollo
+## 11) GO/NO-GO para iniciar desarrollo
 
 - [ ] Problema y objetivo definidos
 - [ ] Alcance/no alcance cerrados
@@ -132,8 +147,8 @@ Estado:
 Regla:
 - Si algun item critico esta en NO, desarrollo bloqueado.
 
-## 11) Control de cambios del spec
+## 12) Control de cambios del spec
 
 | Version | Fecha | Autor | Cambios | Aprobacion |
 |---|---|---|---|---|
-| 2.0 | 15-04-2026 | <AUTOR> | Simplificacion a flujo Spec-Driven puro | <APROBADOR> |
+| 3.0 | 12-05-2026 | <AUTOR> | Base estandar SDD en directorio templates/base | <APROBADOR> |

@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "requiredSections": [
+    { "name": "Problema y objetivo", "heading": "## 2) Problema y objetivo" },
+    { "name": "Alcance", "heading": "## 3) Alcance" },
+    { "name": "RF y RN", "heading": "## 4) Requerimientos funcionales y reglas de negocio" },
+    { "name": "RNF", "heading": "## 5) Requerimientos no funcionales" },
+    { "name": "Contratos", "heading": "## 6) Contratos tecnicos" },
+    { "name": "Criterios de aceptacion", "heading": "## 7) Criterios de aceptacion" },
+    { "name": "GO/NO-GO", "heading": "## 11) GO/NO-GO para iniciar desarrollo" }
+  ],
+  "enforceGoNoGoChecklist": true,
+  "adapterComplianceEnabled": true,
+  "complianceRules": []
+}
