@@ -5,7 +5,9 @@ description: Modern UI UX standards for Angular interfaces
 
 # Skill - UI/UX Modern Angular Standards
 
-Objetivo: disenar e implementar UIs modernas en Angular usando templates actuales, accesibilidad AA y patrones consistentes de producto.
+Objetivo: disenar e implementar interfaces Angular de calidad de producto, con alto nivel de usabilidad, accesibilidad AA, rendimiento y consistencia visual.
+
+Meta operativa: cada entrega UI debe ser util, entendible y verificable por checklist tecnico y UX.
 
 ## Cuando usar este skill
 
@@ -19,6 +21,36 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 2. Usuario objetivo y tarea principal.
 3. Restricciones de UI (design system, librerias, tema).
 4. Estados requeridos: cargando, error, vacio, con datos, sin permisos.
+5. Prioridad de negocio de la vista (accion principal, accion secundaria, lectura).
+6. Criterios de aceptacion de UX (tiempos, claridad, recuperacion de errores).
+
+## Marco de calidad obligatorio (no negociable)
+
+### 1) Claridad de tarea
+- La vista responde en menos de 5 segundos a esta pregunta: "Que tengo que hacer aqui?".
+- Existe una sola accion primaria dominante por pantalla.
+- El contenido relevante queda visible sin scroll excesivo en 375px y desktop.
+
+### 2) Control y feedback
+- Cada accion del usuario tiene feedback inmediato (visual, texto o cambio de estado).
+- Errores deben explicar causa y siguiente paso.
+- Estados de progreso deben ser finitos y recuperables.
+
+### 3) Accesibilidad real
+- Contraste AA: minimo 4.5:1 para texto normal.
+- Navegacion por teclado completa en el flujo principal.
+- Foco visible y consistente en elementos interactivos.
+- Semantica correcta y labels accesibles en formularios.
+
+### 4) Rendimiento perceptual
+- Primer contenido significativo sin bloqueos innecesarios.
+- Evitar componentes pesados en carga inicial (usar @defer cuando aplique).
+- Evitar re-render innecesario en listas y formularios.
+
+### 5) Consistencia de sistema
+- Espaciado, tipografia, color y estados definidos por tokens del sistema.
+- Prohibido hardcodear estilos de marca por componente.
+- Misma interaccion para patrones repetidos (tabla, filtro, modal, formulario).
 
 ## Reglas Angular para UI moderna
 
@@ -27,23 +59,31 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 - Usar OnPush por defecto en componentes de UI.
 - Separar contenedor (estado/orquestacion) de presentacional (render y eventos).
 - Evitar logica compleja en el template; mover a propiedades computadas.
+- Definir un view-model por pantalla para concentrar estados de UI.
+- Evitar side effects de UI dentro de getters o computed complejos.
 
 ### Template moderno (Angular 17+)
 - Usar control flow nuevo: @if, @for, @switch.
 - En listas, usar track estable en @for para evitar rerenders innecesarios.
 - Usar @defer en bloques pesados o secundarios para mejorar carga inicial.
 - Evitar anidamiento profundo de condiciones; simplificar con view-model.
+- Evitar mas de 2 niveles de nesting condicional en una misma seccion.
+- Priorizar templates legibles sobre templates "inteligentes".
 
 ### Estado y reactividad
 - Preferir signals y computed para estado local de UI.
 - Efectos solo para sincronizacion con servicios externos.
 - Usar async pipe o lectura de signals; evitar subscribe manual en componente de UI.
+- Modelar estados explicitos: idle, loading, success, empty, error, forbidden.
 
 ### Formularios
 - Reactive Forms para validacion real de negocio.
 - Labels visibles siempre, nunca solo placeholder.
 - Validacion en contexto junto al campo.
 - Mensajes de error accionables y especificos.
+- Mostrar criterio de formato antes de que el usuario falle (prevencion).
+- Bloquear doble submit y mostrar estado de envio.
+- Mantener foco en primer error al validar submit.
 
 ### Diseno visual moderno
 - Jerarquia clara: una accion primaria por vista.
@@ -51,6 +91,8 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 - Espaciado por sistema de escala (ej. 4/8/12/16/24).
 - Tokens de color/tema del sistema; no hardcodear colores por componente.
 - Estados visuales definidos: hover, focus, active, disabled, loading.
+- Priorizar legibilidad y contraste por sobre "estetica".
+- Evitar sobrecarga visual: bordes, sombras y colores solo cuando aporten significado.
 
 ### Accesibilidad obligatoria
 - Contraste minimo 4.5:1 en texto normal.
@@ -58,12 +100,46 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 - Navegacion por teclado completa en flujo critico.
 - Semantica correcta: boton para acciones, enlace para navegacion.
 - Soporte de lector de pantalla en feedback y errores relevantes.
+- aria-live para mensajes dinamicos (error, guardado, estado async).
+- No depender solo de color para comunicar estado.
 
 ### Responsive real
 - Mobile-first, viewport minimo 375px.
 - No perder acciones clave en movil.
 - Tablas con estrategia movil: scroll horizontal, vista card o columnas prioritarias.
 - Verificar densidad de contenido para touch (targets tactiles adecuados).
+- Objetivo touch: minimo 44x44 px en elementos interactivos principales.
+
+## Patrones obligatorios por tipo de pantalla
+
+### Pantalla de lista
+- Filtro/busqueda visible y estado vacio util.
+- Orden y paginacion claros si aplica.
+- Acciones por fila con confirmacion cuando sean destructivas.
+
+### Pantalla de detalle
+- Resumen arriba, acciones al alcance sin ruido.
+- Informacion agrupada por bloques con titulos claros.
+- Estados de carga parcial sin parpadeo de contenido.
+
+### Formulario de creacion/edicion
+- Secciones cortas y progresivas.
+- Validacion inmediata en campos criticos.
+- Confirmacion de exito y ruta de salida clara.
+
+## Rubrica de evaluacion UX/UI (0-100)
+
+- Claridad de tarea: 20
+- Accesibilidad: 20
+- Feedback y errores: 15
+- Consistencia visual: 15
+- Responsive y touch: 15
+- Rendimiento percibido: 15
+
+Regla:
+- >= 85: listo para merge
+- 70-84: requiere ajustes antes de merge
+- < 70: bloquear entrega UI
 
 ## Checklist de aceptacion
 
@@ -75,6 +151,9 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 6. Contraste, foco y teclado cumplen AA en flujo principal.
 7. Vista funcional en 375px y desktop sin romper tareas.
 8. Sin estilos hardcodeados fuera del sistema de diseno.
+9. Mensajes de error con accion de recuperacion.
+10. Estado vacio con siguiente paso concreto.
+11. Score de rubrica UX/UI documentado en PR.
 
 ## Anti-patrones
 
@@ -84,6 +163,26 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 - Mensajes de error genericos sin siguiente paso.
 - Templates con logica de negocio o expresiones complejas repetidas.
 - Uso de any en modelos de datos de formulario/UI.
+- CTA destructivo sin confirmacion o undo.
+- UI que depende de tooltip para informacion critica.
+- Skeleton/spinner sin timeout ni fallback de error.
+
+## Pruebas minimas obligatorias
+
+1. Prueba manual teclado en flujo critico (tab, shift+tab, enter, escape).
+2. Prueba visual en 375px, 768px y desktop.
+3. Prueba de estados: loading, empty, error, forbidden, success.
+4. Prueba de formulario: validaciones, foco en error, doble submit.
+5. Verificacion de contraste en textos y botones principales.
+
+## Contrato de salida del agente (implementacion)
+
+El agente debe entregar:
+
+1. Resumen de decisiones UI/UX tomadas y por que.
+2. Lista de estados implementados por pantalla.
+3. Riesgos pendientes de UX (si existen).
+4. Resultado de rubrica UX/UI (puntaje + evidencia).
 
 ## Formato de salida del agente
 
@@ -96,4 +195,5 @@ Objetivo: disenar e implementar UIs modernas en Angular usando templates actuale
 - UI consistente con sistema visual.
 - Flujo principal claro, accesible y responsive.
 - Template Angular moderno, legible y mantenible.
+- Feedback, errores y estados completos con evidencia verificable.
 
