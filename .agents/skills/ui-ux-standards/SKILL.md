@@ -35,6 +35,7 @@ Meta operativa: cada entrega UI debe ser util, entendible y verificable por chec
 - Cada accion del usuario tiene feedback inmediato (visual, texto o cambio de estado).
 - Errores deben explicar causa y siguiente paso.
 - Estados de progreso deben ser finitos y recuperables.
+- Cada accion critica debe dejar evidencia visible de resultado (toast, inline, estado persistente o timeline).
 
 ### 3) Accesibilidad real
 - Contraste AA: minimo 4.5:1 para texto normal.
@@ -84,6 +85,8 @@ Meta operativa: cada entrega UI debe ser util, entendible y verificable por chec
 - Mostrar criterio de formato antes de que el usuario falle (prevencion).
 - Bloquear doble submit y mostrar estado de envio.
 - Mantener foco en primer error al validar submit.
+- Mostrar mensaje explicito de exito o fallo al enviar formulario.
+- Si backend devuelve error, mapearlo a mensaje util para usuario (no mostrar error tecnico crudo).
 
 ### Diseno visual moderno
 - Jerarquia clara: una accion primaria por vista.
@@ -127,6 +130,31 @@ Meta operativa: cada entrega UI debe ser util, entendible y verificable por chec
 - Validacion inmediata en campos criticos.
 - Confirmacion de exito y ruta de salida clara.
 
+## Matriz obligatoria de acciones de usuario
+
+Para cada accion interactiva del flujo principal se debe definir y cubrir:
+
+1. Accion: que hace el usuario.
+2. Trigger: boton/enlace/atajo que la dispara.
+3. Estado loading: que ve el usuario mientras se procesa.
+4. Exito: mensaje o estado visible de confirmacion.
+5. Error: mensaje accionable con siguiente paso.
+6. Reintento o recuperacion: como continuar sin bloquear la tarea.
+
+Regla: no se acepta PR sin matriz completa para acciones criticas.
+
+## Guardrails de implementacion inteligente
+
+El agente debe asumir por defecto que faltan mensajes de usuario hasta demostrar lo contrario.
+
+Checklist automatico previo a cerrar implementacion:
+
+1. Toda accion primaria tiene feedback de exito/error.
+2. Todo formulario tiene validacion previa, durante y posterior al submit.
+3. Todo estado async tiene loading finito + timeout o fallback.
+4. Todo error tecnico se traduce a mensaje entendible por usuario.
+5. Todo flujo critico es operable por teclado y lector de pantalla.
+
 ## Rubrica de evaluacion UX/UI (0-100)
 
 - Claridad de tarea: 20
@@ -154,6 +182,9 @@ Regla:
 9. Mensajes de error con accion de recuperacion.
 10. Estado vacio con siguiente paso concreto.
 11. Score de rubrica UX/UI documentado en PR.
+12. Matriz de acciones de usuario documentada y cumplida.
+13. Confirmaciones de exito/error visibles en todas las acciones criticas.
+14. Errores backend traducidos a lenguaje de usuario.
 
 ## Anti-patrones
 
@@ -166,6 +197,9 @@ Regla:
 - CTA destructivo sin confirmacion o undo.
 - UI que depende de tooltip para informacion critica.
 - Skeleton/spinner sin timeout ni fallback de error.
+- Guardar/enviar sin feedback posterior al usuario.
+- Validar solo en backend sin guia previa en UI.
+- Mensajes de exito efimeros sin estado persistente cuando la accion es critica.
 
 ## Pruebas minimas obligatorias
 
@@ -174,6 +208,8 @@ Regla:
 3. Prueba de estados: loading, empty, error, forbidden, success.
 4. Prueba de formulario: validaciones, foco en error, doble submit.
 5. Verificacion de contraste en textos y botones principales.
+6. Prueba de accion critica: exito, error y reintento en la misma sesion.
+7. Prueba de submit con backend fallando (mensaje util + recuperacion).
 
 ## Contrato de salida del agente (implementacion)
 
@@ -183,6 +219,7 @@ El agente debe entregar:
 2. Lista de estados implementados por pantalla.
 3. Riesgos pendientes de UX (si existen).
 4. Resultado de rubrica UX/UI (puntaje + evidencia).
+5. Matriz de acciones de usuario con cobertura exito/error/reintento.
 
 ## Formato de salida del agente
 
