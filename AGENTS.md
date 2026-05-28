@@ -29,5 +29,5 @@ Este repositorio contiene plantillas y reglas Spec-Driven para uso generico en e
 - Angular + .NET: `.agents/skills/angular-dotnet-fullstack-coding-standards/SKILL.md`
 - .NET: `.agents/skills/dotnet-coding-standards/SKILL.md`
 - Python: `.agents/skills/python-coding-standards/SKILL.md`
-- UI/UX: `.agents/skills/ui-ux-standards/SKILL.md`, `.agents/skills/ui-art-direction-standards/SKILL.md`, `.agents/skills/ui-product-excellence-autopilot/SKILL.md`, `.agents/skills/ui-client-delivery-enterprise/SKILL.md`
+- UI/UX: `.agents/skills/ui-ux-standards/SKILL.md`
 - Genericas: `.agents/skills/clean-code/SKILL.md`, `.agents/skills/code-review/SKILL.md`, `.agents/skills/security-owasp/SKILL.md`, `.agents/skills/tdd-test-implementation/SKILL.md`, `.agents/skills/local-qa-without-ci/SKILL.md`, `.agents/skills/caveman-token-saver-lite/SKILL.md`
