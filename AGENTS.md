@@ -5,7 +5,7 @@ Este repositorio contiene plantillas y reglas Spec-Driven para uso generico en e
 ## Politica obligatoria
 
 - Todo requerimiento nuevo requiere spec aprobado antes de iniciar desarrollo.
-- Sin gate GO (`spec_validate_quality_gate ok=true`), el desarrollo esta bloqueado.
+- Sin gate GO (validacion manual del spec), el desarrollo esta bloqueado.
 - El spec es la unica fuente de verdad para criterios de aceptacion, contratos y trazabilidad.
 
 ### Adopcion en sistemas existentes (legacy / produccion)
@@ -24,10 +24,16 @@ Este repositorio contiene plantillas y reglas Spec-Driven para uso generico en e
 ## Flujo Spec-Driven por feature
 
 1. Escribir spec en `ai-workspace/specs/<modulo>.md`.
-2. Validar gate con `spec_validate_quality_gate` (MCP).
+2. Validar gate con `ai-workspace/agents/spec-validator-agent.md` y su checklist en `ai-workspace/skills/spec-validation-skill.md`.
 3. Implementar contra criterios de aceptacion del spec siguiendo `ai-framework/orchestrators/feature-development-orchestrator.md`.
-4. Generar casos QA y publicar evidencia con `qa_generate_and_publish_evidence` (MCP).
+4. Generar casos QA y publicar evidencia en `ai-workspace/evidence/`.
 5. Hacer code review trazado al spec antes de mergear.
+
+## Agentes para el ciclo de spec
+
+- `ai-workspace/agents/spec-author-agent.md` para crear specs desde requerimientos (spec-first asistido).
+- `ai-workspace/agents/spec-validator-agent.md` para gate manual GO/NO-GO sin MCP.
+- `ai-workspace/skills/spec-authoring-skill.md` y `ai-workspace/skills/spec-validation-skill.md` como checklists operativas.
 
 ## Orchestrators disponibles
 

@@ -155,7 +155,7 @@ evidence/
 3. Ejecuta spec-generator.md (reverse engineering)
    -> genera ai-workspace/specs/init-spec.md
 4. Revisión humana del spec (modulos, reglas [inferred], open questions)
-5. Ejecutar quality gate (spec_validate_quality_gate ok=true)
+5. Ejecutar quality gate manual con spec-validator-agent
 6. Run the project initialization
 ```
 
@@ -172,6 +172,15 @@ evidence/
 - Actualización incremental: cuando cambien módulos, integraciones o contratos.
 - Re-scan parcial: cuando haya drift en un módulo puntual.
 - Re-scan completo: solo en cambios arquitectónicos grandes.
+
+### Agentes y skills para trabajar specs
+
+| Archivo | Rol |
+|---|---|
+| `agents/spec-author-agent.md` | Genera o refina specs desde requerimientos |
+| `agents/spec-validator-agent.md` | Ejecuta gate manual GO/NO-GO del spec |
+| `skills/spec-authoring-skill.md` | Reglas para construir specs trazables y verificables |
+| `skills/spec-validation-skill.md` | Checklist para validar completitud y calidad |
 
 ### Proyecto nuevo
 

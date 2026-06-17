@@ -45,7 +45,7 @@ Estándares base ajustables al stack real del proyecto:
 ### Greenfield (sin código existente)
 
 1. Crear `ai-workspace/specs/init-spec.md`.
-2. Validar quality gate (`spec_validate_quality_gate ok=true`).
+2. Validar quality gate manual con `ai-workspace/agents/spec-validator-agent.md`.
 3. Ejecutar `Run the project initialization`.
 
 ### Existing / Legacy / Production (con código)
@@ -54,8 +54,15 @@ Estándares base ajustables al stack real del proyecto:
 2. Generar `ai-workspace/context/codebase-analysis.md` consolidado.
 3. Ejecutar `spec-generator.md` en modo reverse engineering para producir `ai-workspace/specs/init-spec.md`.
 4. Revisar y aprobar reglas `[inferred]` y `Open Questions`.
-5. Validar quality gate (`spec_validate_quality_gate ok=true`).
+5. Validar quality gate manual con `ai-workspace/agents/spec-validator-agent.md`.
 6. Ejecutar `Run the project initialization`.
+
+## Agentes y skills recomendados para specs
+
+- `ai-workspace/agents/spec-author-agent.md`: crea o refina specs desde requerimientos.
+- `ai-workspace/agents/spec-validator-agent.md`: evalua spec y emite GO/NO-GO.
+- `ai-workspace/skills/spec-authoring-skill.md`: reglas para transformar requerimientos en spec verificable.
+- `ai-workspace/skills/spec-validation-skill.md`: checklist de calidad para gate manual.
 
 ---
 

@@ -129,9 +129,9 @@ ai-workspace/specs/init-spec.md
 - Confirmar reglas marcadas como `[inferred]`.
 - Resolver `Open Questions`.
 
-4. Ejecutar quality gate del spec (`spec_validate_quality_gate ok=true`).
+4. Ejecutar quality gate manual del spec usando `ai-workspace/agents/spec-validator-agent.md`.
 
-> Sin gate GO, el desarrollo queda bloqueado.
+> Sin gate GO (aprobacion humana), el desarrollo queda bloqueado.
 
 ### Paso 3 — Inicializar el proyecto con el agente
 
@@ -177,6 +177,39 @@ Reglas:
 - marcar inferencias con [inferred]
 - mantener Open Questions para ambigüedades
 - no inventar reglas de negocio no verificables
+```
+
+#### Prompt 2.1 — Validar spec sin MCP (gate manual)
+
+```
+Actua como spec-validator-agent.
+
+Valida ai-workspace/specs/init-spec.md contra la checklist de
+ai-workspace/skills/spec-validation-skill.md.
+
+Entrega:
+- Hallazgos criticos
+- Hallazgos medios
+- Hallazgos menores
+- Estado del gate: GO o NO-GO
+- Acciones concretas para llegar a GO
+```
+
+#### Prompt 2.2 — Crear spec desde requerimiento (spec-first asistido)
+
+```
+Actua como spec-author-agent.
+
+Con este requerimiento:
+<pegar requerimiento aqui>
+
+Genera o actualiza ai-workspace/specs/init-spec.md usando
+ai-workspace/skills/spec-authoring-skill.md.
+
+Reglas:
+- no inventar reglas de negocio
+- marcar supuestos y ambigüedades
+- incluir criterios de aceptacion verificables
 ```
 
 #### Prompt 3 — Inicializar proyecto con spec aprobado
