@@ -28,21 +28,57 @@ spec-driven-templates/
 
 ---
 
+## Modelo de repositorios
+
+El ia-context **vive en un repositorio propio**, separado de los repositorios de código.
+No se copia ni se instala dentro del proyecto. Es un repo independiente que el equipo abre en paralelo.
+
+```
+Organización en Bitbucket / GitHub
+├── anb-bci-ia-context/        ← fork de spec-driven-templates — repo de IA (ESTE)
+│   ├── ai-framework/          #   inteligencia del agente
+│   └── ai-workspace/          #   specs, contexto, arquitectura, sprints
+│
+├── anb-bci-backend/           ← repo de código (toca el equipo de desarrollo)
+├── anb-bci-frontend/          ← repo de código
+└── anb-bci-infra/             ← repo de infraestructura
+```
+
+**Por qué separado:**
+- El historial de decisiones de IA no contamina el historial de código.
+- El equipo de IA puede evolucionar el framework sin afectar los pipelines de código.
+- Un solo ia-context puede servir a múltiples repos de código del mismo proyecto.
+- Los repos de código no necesitan saber nada del framework.
+
+**Cómo trabaja el equipo:**
+El desarrollador abre el ia-context y el repo de código en el mismo IDE (workspace multi-root o ventanas separadas). El agente lee el contexto del ia-context y escribe el código en el repo correspondiente.
+
+---
+
 ## Cómo usar este framework
 
-### Paso 1 — Copiar la estructura al proyecto
+### Paso 1 — Crear el repo ia-context del proyecto
 
-Copia las carpetas `ai-framework/` y `ai-workspace/` a la raíz del repositorio del proyecto donde quieres aplicar el flujo.
+Haz fork de `spec-driven-templates` en la organización y nómbralo con la convención del proyecto:
 
 ```
-mi-proyecto/
-├── ai-framework/    ← copiado de aquí
-├── ai-workspace/    ← copiado de aquí
-├── src/
-└── ...
+<cliente>-<proyecto>-ia-context
+# Ejemplo: anb-bci-ia-context
 ```
 
-> Alternativa: clonar este repo y trabajar directamente sobre él si el proyecto es nuevo.
+Clonar localmente:
+
+```bash
+git clone git@bitbucket.org:PlataformaGroup/<cliente>-<proyecto>-ia-context.git
+```
+
+Agregar upstream para recibir actualizaciones del framework:
+
+```bash
+git remote add upstream https://bitbucket.org/PlataformaGroup/spec-driven-templates.git
+```
+
+> No copiar `ai-framework/` ni `ai-workspace/` dentro del repo de código. El ia-context es el repo.
 
 ### Paso 2 — Escribir el spec inicial
 

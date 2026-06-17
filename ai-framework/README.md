@@ -57,6 +57,20 @@ No son reglas globales fijas — se sobreescriben según el proyecto.
 | El stack del proyecto es diferente a los standards base | Ejecutar `standards-generator.md` para ajustarlos |
 | Se detecta un dominio que necesita un agente especializado | Ejecutar `agent-generator.md` |
 | El framework necesita un nuevo tipo de generator u orchestrator | Agregar el archivo correspondiente aquí |
+
+---
+
+## Recibir actualizaciones del framework base
+
+Este repo es un fork de `spec-driven-templates`. Para traer mejoras del framework al proyecto:
+
+```bash
+git fetch upstream
+git merge upstream/main --no-ff -m "chore: sync spec-driven-templates - <descripcion>"
+git push origin main
+```
+
+Si hay conflictos en archivos de `ai-framework/`, priorizar la versión del upstream (son reglas del framework, no lógica del proyecto). Los conflictos en `ai-workspace/` siempre se resuelven a favor de la versión local (es el trabajo del equipo).
 —      → ai/decisions/                      (durante ejecución)
 —      → ai/evidence/                       (durante QA y releases)
 ```
