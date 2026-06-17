@@ -8,15 +8,70 @@ Orchestrate the complete spec-first setup of a new project. Transforms a single 
 
 # When to Use
 
-Once, at the start of a new project — after writing `ai/specs/init-spec.md`.
+- **Greenfield:** At the start of a new project, after writing `ai/specs/init-spec.md`.
+- **Existing / Legacy / Production:** When adopting this framework on a codebase that already has code. Follow Phase 0 first.
 
 ---
 
 # Precondition
 
-`ai/specs/init-spec.md` must exist and be complete before running this orchestrator.
+Check which path applies:
 
-If it doesn't exist, run `ai-engineering-framework/generators/spec-generator.md` first.
+| Condition | Path |
+|-----------|------|
+| `ai/specs/init-spec.md` exists and is complete | Skip Phase 0 → go to Phase 1 |
+| Codebase exists but no spec | Execute Phase 0 → then Phase 1 |
+| Neither spec nor codebase | Write the spec manually → then Phase 1 |
+
+---
+
+# Phase 0 — Bootstrap from Existing Codebase (Legacy / Production)
+
+> Run this phase ONLY when `ai/specs/init-spec.md` does not exist but a codebase does.
+
+## Step 0.1 — Scan the codebase
+
+Using: `ai-framework/generators/code-analysis-generator.md`
+
+Scan the existing project and generate:
+
+```txt
+ai/context/codebase-analysis.md
+```
+
+Follow the scan order defined in the generator (Layer 1 → Layer 8).
+
+## Step 0.2 — Generate draft init-spec
+
+Using: `ai-framework/generators/spec-generator.md` in **Mode B (Reverse Engineering)**
+
+Read `ai/context/codebase-analysis.md` and produce a draft:
+
+```txt
+ai/specs/init-spec.md
+```
+
+Rules:
+- Mark every inferred requirement with `[inferred]`.
+- Carry all Open Questions from the analysis into the spec verbatim.
+- LOW confidence items go to Open Questions only — never to requirements.
+
+## Step 0.3 — Human validation gate
+
+Present the draft `init-spec.md` to the user and ask:
+
+> "Este spec fue generado por análisis del código existente.
+> Por favor revisa:
+> 1. ¿Los módulos y entidades identificados son correctos?
+> 2. ¿Las reglas de negocio [inferred] son correctas?
+> 3. ¿Hay funcionalidad que no fue detectada?
+> 4. Responde las Open Questions al final del spec."
+
+**Do not proceed to Phase 1 until the user explicitly confirms the spec is valid.**
+
+After confirmation, remove `[inferred]` tags from approved items and resolve Open Questions.
+
+---
 
 ---
 
