@@ -5,29 +5,36 @@ Este repositorio contiene plantillas y reglas Spec-Driven para uso generico en e
 ## Politica obligatoria
 
 - Todo requerimiento nuevo requiere spec aprobado antes de iniciar desarrollo.
-- Sin spec aprobado (`validate_spec_gate ok=true`), el desarrollo esta bloqueado.
+- Sin gate GO (`spec_validate_quality_gate ok=true`), el desarrollo esta bloqueado.
 - El spec es la unica fuente de verdad para criterios de aceptacion, contratos y trazabilidad.
 
 ## Politica de mantenimiento
 
-- Fuente unica de verdad para skills: `.agents/skills/**/SKILL.md`.
-- Fuente unica de verdad para template base SDD: `templates/base/FEATURE-SPEC-BASE.md`.
-- No duplicar reglas ni templates en carpetas por herramienta.
+- No duplicar reglas ni templates entre carpetas.
+- Los generators en `ai-framework/generators/` son la unica fuente de verdad para producir artefactos.
+- Los orchestrators en `ai-framework/orchestrators/` definen el orden de ejecucion — no improvisar pasos.
 
 ## Flujo Spec-Driven por feature
 
-1. Crear spec en `intake/<featureId>/specs/<featureId>-SPEC.md` usando `templates/base/FEATURE-SPEC-BASE.md`.
-2. Validar spec con `validate_spec_gate`.
-3. Implementar contra criterios de aceptacion del spec.
-4. Generar casos QA con `qa_generate_from_spec`.
-5. Ejecutar QA local y publicar evidencia con `qa_publish_evidence`.
-6. Hacer code review trazado al spec antes de mergear.
+1. Escribir spec en `ai-workspace/specs/<modulo>.md`.
+2. Validar gate con `spec_validate_quality_gate` (MCP).
+3. Implementar contra criterios de aceptacion del spec siguiendo `ai-framework/orchestrators/feature-development-orchestrator.md`.
+4. Generar casos QA y publicar evidencia con `qa_generate_and_publish_evidence` (MCP).
+5. Hacer code review trazado al spec antes de mergear.
 
-## Skills por stack
+## Orchestrators disponibles
 
-- Angular: `.agents/skills/angular-coding-standards/SKILL.md`
-- Angular + .NET: `.agents/skills/angular-dotnet-fullstack-coding-standards/SKILL.md`
-- .NET: `.agents/skills/dotnet-coding-standards/SKILL.md`
-- Python: `.agents/skills/python-coding-standards/SKILL.md`
-- UI/UX: `.agents/skills/ui-ux-standards/SKILL.md`
-- Genericas: `.agents/skills/clean-code/SKILL.md`, `.agents/skills/code-review/SKILL.md`, `.agents/skills/security-owasp/SKILL.md`, `.agents/skills/tdd-test-implementation/SKILL.md`, `.agents/skills/local-qa-without-ci/SKILL.md`, `.agents/skills/caveman-token-saver-lite/SKILL.md`
+| Instruccion al agente | Orchestrator |
+|---|---|
+| *(inicio de sesion)* | `ai-framework/orchestrators/session-init-orchestrator.md` |
+| `Run the project initialization` | `ai-framework/orchestrators/project-init-orchestrator.md` |
+| `Implement task <nombre>` | `ai-framework/orchestrators/feature-development-orchestrator.md` |
+| `There is a bug in <modulo>: <descripcion>` | `ai-framework/orchestrators/bugfix-orchestrator.md` |
+| `Validate this task` | `ai-framework/orchestrators/qa-orchestrator.md` |
+| `Prepare the release` | `ai-framework/orchestrators/release-orchestrator.md` |
+
+## Agente Caveman (ahorro de tokens)
+
+- Agente base recomendado: `ai-workspace/agents/caveman-agent.md`.
+- Rol: reducir consumo de tokens con respuestas compactas y ejecucion enfocada.
+- Limite: no reemplaza agentes de dominio para decisiones de negocio o arquitectura.

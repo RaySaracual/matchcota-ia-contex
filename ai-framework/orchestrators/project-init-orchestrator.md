@@ -136,9 +136,11 @@ Generate:
 
 ```txt
 ai/agents/<domain>-agent.md
+ai/agents/caveman-agent.md
 ```
 
-> Do not generate generic agents. Only generate agents for domains explicitly present in the spec.
+> Do not generate generic domain agents. Only generate agents for domains explicitly present in the spec.
+> Exception: always create `ai/agents/caveman-agent.md` as transversal token-saver support.
 
 ---
 

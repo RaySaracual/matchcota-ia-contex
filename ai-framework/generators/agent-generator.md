@@ -11,6 +11,7 @@ Generate contextual AI agents specialized for the current project domain, workfl
 - **Auto-detect domains from spec** — read `ai/specs/*` and identify areas of high complexity, critical workflows, or integration-heavy modules that require a dedicated agent.
 - Detect operational areas.
 - Generate specialized agents only for detected domains.
+- Ensure baseline token-optimization support with a generic `caveman-agent.md`.
 - Avoid redundant agents.
 - Define clear agent responsibilities.
 - Define agent boundaries.
@@ -47,6 +48,7 @@ payment-agent.md
 reporting-agent.md
 workflow-engine-agent.md
 qa-validation-agent.md
+caveman-agent.md
 ```
 
 ---
@@ -61,6 +63,8 @@ qa-validation-agent.md
 * Agents must define expected outputs.
 * Agents must define operational limits.
 * **Only generate agents for domains explicitly present in the spec** — do not invent agents.
+* Exception: always ensure `caveman-agent.md` exists as a transversal token-saver agent.
+* `caveman-agent.md` must stay generic and must not own domain/business decisions.
 * After generating agents, run `skill-generator.md` to detect reusable skills they need.
 
 ---

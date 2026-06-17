@@ -13,6 +13,7 @@ Carpeta de trabajo del proyecto. El equipo solo escribe en `specs/`. El agente g
 | `context/` | El agente (desde el spec) | Durante inicialización | 2 |
 | `architecture/` | El agente (desde el spec) | Durante inicialización | 3 |
 | `sprints/` | El agente (desde el spec) | Durante inicialización | 4 |
+| `agents/` | El agente (base + dominio) | Durante inicialización | 4 |
 | `execution/` | El agente | Al inicio de cada sesión | 5 |
 | `state/` | El agente | Al completar cada tarea | 6 |
 | `decisions/` | El agente | Al tomar decisiones arquitectónicas | 7 |
@@ -37,6 +38,7 @@ Desde el spec inicial, el agente genera automáticamente usando `ai-framework/ge
 | `context/project.md` + `stack.md` | `context-generator.md` |
 | `architecture/` | `architecture-generator.md` |
 | `sprints/roadmap.md` + sprints | `sprint-generator.md` |
+| `agents/` (incluye `caveman-agent.md`) | `agent-generator.md` |
 | `ai-framework/standards/` | `standards-generator.md` |
 | `AGENTS.md` | `agents-md-generator.md` |
 
@@ -77,6 +79,16 @@ Derivado del spec y la arquitectura. Los sprints deben ser incrementales con un 
 | `backlog.md` | Features priorizadas pendientes de implementar |
 | `sprint-01.md` | Tareas, goal y criterios del primer sprint |
 | `sprint-NN.md` | Tareas de cada sprint subsiguiente |
+
+---
+
+### `agents/` — Agentes del proyecto
+Se generan durante la inicializacion para especializacion operativa.
+
+| Archivo | Propósito |
+|---|---|
+| `caveman-agent.md` | Agente transversal de ahorro de tokens (base obligatoria) |
+| `<domain>-agent.md` | Agentes especializados por dominio detectado en el spec |
 
 ---
 

@@ -17,7 +17,7 @@ El agente los usa durante la inicialización del proyecto y cuando se agregan m�
 | `architecture-generator.md` | `ai-workspace/architecture/*.md` |
 | `sprint-generator.md` | `ai-workspace/sprints/roadmap.md` + sprints |
 | `standards-generator.md` | Standards ajustados al stack real del proyecto |
-| `agent-generator.md` | `ai-workspace/agents/*.md` (solo si el spec los justifica) |
+| `agent-generator.md` | `ai-workspace/agents/*.md` (agentes de dominio segun spec + `caveman-agent.md` base) |
 | `skill-generator.md` | `ai-workspace/skills/*.md` (solo patrones reutilizables reales) |
 | `workflow-generator.md` | `ai-workspace/workflows/*.md` |
 | `agents-md-generator.md` | `AGENTS.md` raíz del repo |
