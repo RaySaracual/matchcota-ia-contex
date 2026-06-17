@@ -16,6 +16,39 @@ This generator bridges existing code into the Spec-Driven workflow.
 
 ---
 
+# Multi-Repo Projects (Backend + Frontend + Infra)
+
+Un ia-context cubre el sistema completo, no un repo individual.
+Si el proyecto tiene múltiples repos, escanéalos todos antes de producir el output.
+
+## Cómo declarar los repos a escanear
+
+Al invocar este generator, el agente debe recibir la lista de repos:
+
+```
+Repos a escanear:
+- backend:  <ruta local o URL>
+- frontend: <ruta local o URL>
+- infra:    <ruta local o URL>  (opcional)
+```
+
+## Orden de escaneo multi-repo
+
+1. **Infra primero** (si existe) → revela servicios, bases de datos, entornos, secrets
+2. **Backend** → entidades, API, reglas de negocio, integraciones
+3. **Frontend** → módulos de UI, flujos de usuario, llamadas a API consumidas
+
+## Reglas multi-repo
+
+- Cada repo se escanea con el mismo orden de capas (Layer 1 → Layer 8).
+- El output es **un solo `codebase-analysis.md`** que integra todos los repos.
+- Cuando backend y frontend declaran lo mismo (ej. un endpoint), validar que coincidan. Si no coinciden, marcarlo como ambigüedad.
+- Las entidades del backend son la fuente de verdad del modelo de datos.
+- Los tipos/interfaces del frontend complementan pero no contradicen el backend.
+- Identificar explícitamente qué repo es responsable de cada módulo en la tabla de Módulos del output.
+
+---
+
 # Scan Order
 
 Read files in this exact order. Stop at each layer and extract before moving to the next.
@@ -155,9 +188,9 @@ ai/context/codebase-analysis.md
 ...
 
 ## Modules
-| Module | Path | Purpose | Confidence |
-|--------|------|---------|------------|
-| ... | ... | ... | HIGH/MEDIUM/LOW |
+| Module | Repo | Path | Purpose | Confidence |
+|--------|------|------|---------|------------|
+| ... | backend/frontend/infra | ... | ... | HIGH/MEDIUM/LOW |
 
 ## Entities
 | Entity | Attributes | Relationships | Confidence |
