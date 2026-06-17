@@ -212,6 +212,54 @@ Reglas:
 - incluir criterios de aceptacion verificables
 ```
 
+#### Plantilla corta de requerimiento de negocio (input recomendado)
+
+Usa este formato antes de pedirle al agente que genere el spec:
+
+```txt
+Titulo:
+<nombre del requerimiento>
+
+Problema de negocio:
+<que duele hoy y por que importa>
+
+Objetivo:
+<resultado esperado del negocio>
+
+Actores:
+<roles que participan>
+
+Alcance:
+<que incluye>
+
+Fuera de alcance:
+<que no incluye>
+
+Reglas de negocio conocidas:
+- <regla 1>
+- <regla 2>
+
+Flujo principal:
+1. <paso 1>
+2. <paso 2>
+
+Integraciones:
+<sistemas externos o APIs>
+
+Restricciones:
+<legales, seguridad, performance, tiempo>
+
+Criterios de aceptacion iniciales:
+- <criterio medible 1>
+- <criterio medible 2>
+
+Preguntas abiertas:
+- <duda 1>
+- <duda 2>
+```
+
+Luego usa el Prompt 2.2 para que `spec-author-agent` lo transforme en spec formal.
+
 #### Prompt 3 — Inicializar proyecto con spec aprobado
 
 ```

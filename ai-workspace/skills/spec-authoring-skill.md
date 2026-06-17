@@ -6,6 +6,27 @@ Transform requirements into a complete, testable, and traceable spec.
 
 ---
 
+## Recommended Requirement Input Template
+
+Prefer receiving requirements in this minimum structure before writing the spec:
+
+- Title
+- Business Problem
+- Objective
+- Actors
+- Scope
+- Out of Scope
+- Known Business Rules
+- Main Workflow
+- Integrations
+- Constraints
+- Initial Acceptance Criteria
+- Open Questions
+
+If sections are missing, ask for them or mark as assumptions/open questions.
+
+---
+
 ## Authoring Checklist
 
 1. Convert vague statements into explicit requirements.
