@@ -152,6 +152,39 @@ El agente ejecuta [`ai-framework/orchestrators/project-init-orchestrator.md`](ai
 | Standards ajustados al stack | `ai-framework/standards/` |
 | `AGENTS.md` raíz del repo | `/AGENTS.md` |
 
+### Prompts estándar (copiar y pegar)
+
+#### Prompt 1 — Generar análisis de código consolidado
+
+```
+Ejecuta el code-analysis-generator sobre el proyecto.
+
+Repos a escanear:
+- backend:  <ruta-backend>
+- frontend: <ruta-frontend>
+- infra:    <ruta-infra-opcional>
+
+Genera: ai-workspace/context/codebase-analysis.md
+```
+
+#### Prompt 2 — Generar init-spec desde código existente
+
+```
+Usando ai-workspace/context/codebase-analysis.md,
+genera ai-workspace/specs/init-spec.md en modo reverse engineering.
+
+Reglas:
+- marcar inferencias con [inferred]
+- mantener Open Questions para ambigüedades
+- no inventar reglas de negocio no verificables
+```
+
+#### Prompt 3 — Inicializar proyecto con spec aprobado
+
+```
+Run the project initialization
+```
+
 ### Paso 3.1 — Mantenimiento del contexto persistente
 
 Después de la inicialización, no se vuelve a escanear todo en cada sesión.
