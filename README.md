@@ -80,21 +80,62 @@ git remote add upstream https://bitbucket.org/PlataformaGroup/spec-driven-templa
 
 > No copiar `ai-framework/` ni `ai-workspace/` dentro del repo de código. El ia-context es el repo.
 
-### Paso 2 — Escribir el spec inicial
+### Paso 1.1 — Abrir el workspace correcto (multi-repo)
 
-El **único archivo que el equipo escribe a mano** para comenzar es:
+Para proyectos con backend y frontend en repos separados, abrir en paralelo:
+
+```
+- <proyecto>-ia-context
+- <proyecto>-backend
+- <proyecto>-frontend
+```
+
+Puedes usar multi-root workspace o ventanas separadas.
+El agente debe tener acceso a los repos de código para ejecutar el escaneo inicial.
+
+### Paso 2 — Elegir el camino de inicialización
+
+| Escenario | Camino recomendado |
+|---|---|
+| Proyecto nuevo (sin código) | Greenfield (spec-first) |
+| Proyecto existente / legacy / en producción | Reverse engineering (code-first) |
+
+#### Greenfield (spec-first)
+
+Escribe el spec inicial manualmente en:
 
 ```
 ai-workspace/specs/init-spec.md
 ```
 
-El spec debe cubrir: dominio del sistema, stack tecnológico, actores, requerimientos funcionales y no funcionales, flujos principales, reglas de negocio y criterios de aceptación iniciales.
+Debe cubrir: dominio, stack, actores, requerimientos funcionales y no funcionales, flujos principales, reglas de negocio y criterios de aceptación.
 
-> No hay formato libre. El agente espera un spec estructurado. Usar el spec inicial incluido como referencia: [`ai-workspace/specs/init-spec.md`](ai-workspace/specs/init-spec.md).
+#### Existing / Legacy (code-first)
+
+1. Ejecuta `code-analysis-generator.md` para generar:
+
+```
+ai-workspace/context/codebase-analysis.md
+```
+
+2. Desde ese análisis, ejecuta `spec-generator.md` en modo reverse engineering para generar:
+
+```
+ai-workspace/specs/init-spec.md
+```
+
+3. Valida el spec con revisión humana (obligatorio):
+- Confirmar módulos y límites del sistema.
+- Confirmar reglas marcadas como `[inferred]`.
+- Resolver `Open Questions`.
+
+4. Ejecutar quality gate del spec (`spec_validate_quality_gate ok=true`).
+
+> Sin gate GO, el desarrollo queda bloqueado.
 
 ### Paso 3 — Inicializar el proyecto con el agente
 
-Con el spec completo, decirle al agente:
+Con el `init-spec.md` validado y aprobado, decirle al agente:
 
 ```
 Run the project initialization
@@ -110,6 +151,15 @@ El agente ejecuta [`ai-framework/orchestrators/project-init-orchestrator.md`](ai
 | Agentes de dominio | `ai-workspace/agents/` |
 | Standards ajustados al stack | `ai-framework/standards/` |
 | `AGENTS.md` raíz del repo | `/AGENTS.md` |
+
+### Paso 3.1 — Mantenimiento del contexto persistente
+
+Después de la inicialización, no se vuelve a escanear todo en cada sesión.
+
+- Hacer un baseline inicial completo una sola vez.
+- Hacer actualizaciones incrementales cuando cambie el sistema.
+- Hacer re-scan parcial por módulo si hay drift.
+- Hacer re-scan completo solo cuando la arquitectura cambia de forma significativa.
 
 ### Paso 4 — Flujo de trabajo por feature
 

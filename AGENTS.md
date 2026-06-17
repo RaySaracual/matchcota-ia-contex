@@ -8,6 +8,13 @@ Este repositorio contiene plantillas y reglas Spec-Driven para uso generico en e
 - Sin gate GO (`spec_validate_quality_gate ok=true`), el desarrollo esta bloqueado.
 - El spec es la unica fuente de verdad para criterios de aceptacion, contratos y trazabilidad.
 
+### Adopcion en sistemas existentes (legacy / produccion)
+
+- Si no existe `ai-workspace/specs/init-spec.md` pero existe codigo, ejecutar primero analisis de codigo (Phase 0).
+- Consolidar backend + frontend (+ infra opcional) en un unico `ai-workspace/context/codebase-analysis.md`.
+- Generar `init-spec.md` por reverse engineering y marcar inferencias antes de aprobar.
+- No ejecutar implementacion sin validacion humana del spec y gate GO.
+
 ## Politica de mantenimiento
 
 - No duplicar reglas ni templates entre carpetas.

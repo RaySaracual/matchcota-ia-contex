@@ -146,6 +146,33 @@ evidence/
 
 ## Cómo usar esto
 
+### Proyecto existente / legacy / producción
+
+```
+1. Asegura acceso a repos de código (backend + frontend + infra opcional)
+2. Ejecuta code-analysis-generator.md
+   -> genera ai-workspace/context/codebase-analysis.md
+3. Ejecuta spec-generator.md (reverse engineering)
+   -> genera ai-workspace/specs/init-spec.md
+4. Revisión humana del spec (modulos, reglas [inferred], open questions)
+5. Ejecutar quality gate (spec_validate_quality_gate ok=true)
+6. Run the project initialization
+```
+
+### Proyecto multi-repo (backend + frontend)
+
+- Mantener un solo `ia-context` por sistema.
+- Consolidar los repos en un solo `codebase-analysis.md`.
+- Resolver inconsistencias entre frontend y backend antes de aprobar el spec.
+- Tratar backend como fuente de verdad para entidades y reglas transaccionales.
+
+### Mantenimiento del contexto persistente
+
+- Baseline inicial: una sola vez al adoptar el framework.
+- Actualización incremental: cuando cambien módulos, integraciones o contratos.
+- Re-scan parcial: cuando haya drift en un módulo puntual.
+- Re-scan completo: solo en cambios arquitectónicos grandes.
+
 ### Proyecto nuevo
 
 **Opción A — Tienes documentos existentes (Word, PDF, notas, reuniones)**

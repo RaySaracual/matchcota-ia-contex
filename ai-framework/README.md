@@ -1,6 +1,6 @@
 # ai-framework/
 
-Inteligencia reutilizable del framework. El agente la consulta para operar — el equipo no la toca.
+Inteligencia reutilizable del framework. El agente la consulta para operar y mantener trazabilidad Spec-Driven.
 
 ---
 
@@ -8,61 +8,69 @@ Inteligencia reutilizable del framework. El agente la consulta para operar — e
 
 ### `generators/` — Cómo producir artefactos
 
-El agente los usa durante la inicialización del proyecto y cuando se agregan módulos nuevos.
-
 | Generator | Produce |
 |---|---|
 | `spec-generator.md` | `ai-workspace/specs/*.md` |
+| `code-analysis-generator.md` | `ai-workspace/context/codebase-analysis.md` |
 | `context-generator.md` | `ai-workspace/context/project.md` + `stack.md` |
 | `architecture-generator.md` | `ai-workspace/architecture/*.md` |
 | `sprint-generator.md` | `ai-workspace/sprints/roadmap.md` + sprints |
 | `standards-generator.md` | Standards ajustados al stack real del proyecto |
-| `agent-generator.md` | `ai-workspace/agents/*.md` (agentes de dominio segun spec + `caveman-agent.md` base) |
-| `skill-generator.md` | `ai-workspace/skills/*.md` (solo patrones reutilizables reales) |
+| `agent-generator.md` | `ai-workspace/agents/*.md` |
+| `skill-generator.md` | `ai-workspace/skills/*.md` |
 | `workflow-generator.md` | `ai-workspace/workflows/*.md` |
 | `agents-md-generator.md` | `AGENTS.md` raíz del repo |
 
 ### `orchestrators/` — Cuándo y cómo ejecutar
 
-Los orchestrators coordinan cómo se produce y valida el trabajo. Cada uno define un flujo paso a paso que el agente sigue para garantizar que nada quede sin hacer: cargar contexto, consultar el spec correcto, aplicar standards, generar entregables y registrar evidencia.
-
-El agente elige el orchestrator según la operación. El equipo solo dice qué quiere hacer.
-
 | Orchestrator | Qué coordina | El equipo dice... |
 |---|---|---|
-| `session-init-orchestrator.md` | Carga contexto, estado y tarea activa al inicio de cada sesión | *(automático — no requiere instrucción)* |
-| `project-init-orchestrator.md` | Ejecuta todos los generators en orden desde el spec inicial | *"Run the project initialization"* |
-| `feature-development-orchestrator.md` | Carga spec relevante → aplica standards → implementa → registra evidencia | *"Implement task X"* |
-| `bugfix-orchestrator.md` | Lee spec → diagnostica → corrige → valida que no rompe nada → registra | *"There is a bug in [módulo]: [descripción]"* |
-| `qa-orchestrator.md` | Valida criterios del spec → regresión → compliance → registra evidencia | *"Validate this task"* |
-| `release-orchestrator.md` | Valida estado general → genera release notes → registra evidencia | *"Prepare the release"* |
+| `session-init-orchestrator.md` | Carga contexto, estado y tarea activa al inicio de sesión | *(automático)* |
+| `project-init-orchestrator.md` | Inicialización completa de proyecto (greenfield o legacy) | `Run the project initialization` |
+| `feature-development-orchestrator.md` | Implementación trazada al spec | `Implement task X` |
+| `bugfix-orchestrator.md` | Diagnóstico + fix + validación | `There is a bug in <módulo>: <descripción>` |
+| `qa-orchestrator.md` | QA contra criterios del spec | `Validate this task` |
+| `release-orchestrator.md` | Preparación de release con evidencia | `Prepare the release` |
 
-> Los orchestrators no improvisan. Cada paso está definido en su archivo y el agente debe seguirlo en orden.
+### `standards/` — Reglas de calidad
 
-### `standards/` — Reglas de calidad del proyecto
+Estándares base ajustables al stack real del proyecto:
 
-Estándares base que el agente ajusta al stack y dominio real con `standards-generator.md`.
-No son reglas globales fijas — se sobreescriben según el proyecto.
-
-`coding-style` · `api-standards` · `frontend-standards` · `backend-standards`
-`testing-standards` · `security-standards` · `git-strategy` · `documentation-standards`
+`coding-style` · `api-standards` · `frontend-standards` · `backend-standards` · `testing-standards` · `security-standards` · `git-strategy` · `documentation-standards`
 
 ---
 
-## Cuándo modificar esta carpeta
+## Inicialización según tipo de proyecto
 
-| Situación | Acción |
-|---|---|
-| Proyecto nuevo | No tocar — el agente la usa como está |
-| El stack del proyecto es diferente a los standards base | Ejecutar `standards-generator.md` para ajustarlos |
-| Se detecta un dominio que necesita un agente especializado | Ejecutar `agent-generator.md` |
-| El framework necesita un nuevo tipo de generator u orchestrator | Agregar el archivo correspondiente aquí |
+### Greenfield (sin código existente)
+
+1. Crear `ai-workspace/specs/init-spec.md`.
+2. Validar quality gate (`spec_validate_quality_gate ok=true`).
+3. Ejecutar `Run the project initialization`.
+
+### Existing / Legacy / Production (con código)
+
+1. Ejecutar `code-analysis-generator.md` sobre repos backend/frontend/infra (si aplica).
+2. Generar `ai-workspace/context/codebase-analysis.md` consolidado.
+3. Ejecutar `spec-generator.md` en modo reverse engineering para producir `ai-workspace/specs/init-spec.md`.
+4. Revisar y aprobar reglas `[inferred]` y `Open Questions`.
+5. Validar quality gate (`spec_validate_quality_gate ok=true`).
+6. Ejecutar `Run the project initialization`.
+
+---
+
+## Política multi-repo
+
+- Se usa un solo `ia-context` por sistema, aunque existan varios repos de código.
+- El escaneo inicial debe integrar backend + frontend (+ infra opcional) en un solo `codebase-analysis.md`.
+- Si backend y frontend difieren en contratos, marcar ambigüedad y no asumir comportamiento.
+- El backend es la fuente de verdad del modelo de datos y reglas transaccionales.
 
 ---
 
 ## Recibir actualizaciones del framework base
 
-Este repo es un fork de `spec-driven-templates`. Para traer mejoras del framework al proyecto:
+Este repo es un fork de `spec-driven-templates`. Para sincronizar mejoras:
 
 ```bash
 git fetch upstream
@@ -70,19 +78,6 @@ git merge upstream/main --no-ff -m "chore: sync spec-driven-templates - <descrip
 git push origin main
 ```
 
-Si hay conflictos en archivos de `ai-framework/`, priorizar la versión del upstream (son reglas del framework, no lógica del proyecto). Los conflictos en `ai-workspace/` siempre se resuelven a favor de la versión local (es el trabajo del equipo).
-—      → ai/decisions/                      (durante ejecución)
-—      → ai/evidence/                       (durante QA y releases)
-```
-
----
-
-## Cómo usar este framework
-
-1. **Generar artefactos**: usa el generator correspondiente según lo que necesitas producir.
-2. **Ejecutar ciclos de vida**: sigue el orchestrator adecuado para la operación (feature, bug, QA, release).
-3. **Validar calidad**: el agente aplica los standards durante toda la ejecución.
-
-> Los generators producen los artefactos que van en `ai-workspace/`.  
-> Los orchestrators coordinan cómo se produce y valida el trabajo.  
-> Los standards definen la calidad mínima aceptable.
+Regla de conflictos:
+- `ai-framework/` → priorizar upstream.
+- `ai-workspace/` → priorizar local del proyecto.
