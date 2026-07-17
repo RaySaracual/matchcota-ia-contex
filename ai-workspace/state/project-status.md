@@ -6,7 +6,7 @@ ACTIVE
 
 ## Current Sprint
 
-sprint-03 — Chat + Release Readiness (planificado, listo para ejecucion)
+sprint-05 — Beta MVP Readiness (planificado)
 
 ## Completed Features
 
@@ -29,6 +29,17 @@ sprint-03 — Chat + Release Readiness (planificado, listo para ejecucion)
 - Sprint 02 - Tarea 10 completada: 8 tests xUnit SwipeService (ownership, idempotencia, match mutuo, ordering canonico).
 - Sprint 02 - Tarea 11 completada: seed-dev-data.ps1 — script idempotente valida flujo end-to-end con match confirmado.
 - Sprint 02 - CERRADO: todos los criterios de aceptacion verificados en vivo.
+- Sprint 03 - Tareas completadas: ChatHub SignalR, endpoints chat REST, chat realtime frontend, navegacion desde matches, upload de foto, middleware global de excepciones + Serilog, auto-logout por 401.
+- Sprint 03 - Pruebas completadas: backend 10/10 y frontend 15/15 en verde.
+- Sprint 03 - CERRADO: evidencia funcional y tecnica registrada.
+- Sprint 04 - CERRADO: BL-002, BL-007, BL-008 y Stabilization completados.
+
+## Next Sprint Focus
+
+- Sprint 05 - Beta MVP Readiness
+  - BL-009: Seguridad de sesion (refresh token + revocacion)
+  - BL-010: Inbox de chats y no leidos
+  - BL-011: Safety controls (reportar/bloquear)
 
 ## In Progress
 
@@ -55,6 +66,18 @@ sprint-03 — Chat + Release Readiness (planificado, listo para ejecucion)
   - flutter analyze: 0 issues
   - Smoke test end-to-end: registro, creacion de perro, discovery, swipe, match confirmado via seed-dev-data.ps1
   - Privacidad coordenadas: verificada (solo distanceKm expuesto en DTOs)
+- Sprint 03: PASS TECNICO — Corte tecnico 2026-07-17
+  - Tests backend xUnit: 10/10 Pass
+  - Tests frontend Flutter: 15/15 Pass
+  - Chat realtime, upload multimedia y manejo de sesion expirada implementados
+  - Docker Compose validado: config valido, up --build exitoso, api/db healthy
+- Sprint 03: PASS FINAL — Cerrado 2026-07-17
+  - Evidencia funcional y tecnica consolidada en ai-workspace/evidence/sprint-03-evidence.md
+- Sprint 04: PASS FINAL — Cerrado 2026-07-17
+  - Backend CI: dotnet format --verify-no-changes + dotnet test por PR
+  - Frontend CI: flutter analyze + flutter test por PR
+  - Smoke check API healthz post-build habilitado en workflow backend
+  - Observabilidad operativa y estabilizacion Windows + Chrome completadas
 
 ## Last Updated
 
