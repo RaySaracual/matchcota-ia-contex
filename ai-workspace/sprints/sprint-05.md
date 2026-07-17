@@ -28,27 +28,27 @@ seguridad de sesion reforzada y controles basicos de seguridad de comunidad.
 
 ### BL-009 - Seguridad de sesion
 
-1. [ ] Backend: agregar refresh tokens persistidos (`POST /api/v1/auth/refresh`, `POST /api/v1/auth/logout-all`).
-2. [ ] Backend: invalidar refresh token en logout y rotar token en cada refresh exitoso.
-3. [ ] Frontend: interceptor Dio con refresh automatico ante 401 (una sola vez por request).
-4. [ ] Frontend: fallback a relogin solo si refresh falla/revocado.
-5. [ ] Tests: backend auth refresh/revocation + frontend flujo refresh success/fail.
+1. [x] Backend: agregar refresh tokens persistidos (`POST /api/v1/auth/refresh`, `POST /api/v1/auth/logout-all`).
+2. [x] Backend: invalidar refresh token en logout y rotar token en cada refresh exitoso.
+3. [x] Frontend: interceptor Dio con refresh automatico ante 401 (una sola vez por request).
+4. [x] Frontend: fallback a relogin solo si refresh falla/revocado.
+5. [x] Tests: backend auth refresh/revocation + frontend flujo refresh success/fail.
 
 ### BL-010 - Inbox de chats y no leidos
 
-1. [ ] Backend: endpoint `GET /api/v1/chat/conversations` con ultimo mensaje, timestamp y unreadCount.
-2. [ ] Backend: endpoint `POST /api/v1/chat/{matchId}/read` para marcar mensajes como leidos.
-3. [ ] Frontend: reemplazar placeholder `ChatPage` por lista real de conversaciones.
-4. [ ] Frontend: badge de no leidos en lista e integracion con `ConversationPage` para reset de contador.
-5. [ ] Tests: servicio/controlador chat inbox + widgets de lista inbox.
+1. [x] Backend: endpoint `GET /api/v1/chat/conversations` con ultimo mensaje, timestamp y unreadCount.
+2. [x] Backend: endpoint `POST /api/v1/chat/{matchId}/read` para marcar mensajes como leidos.
+3. [x] Frontend: reemplazar placeholder `ChatPage` por lista real de conversaciones.
+4. [x] Frontend: badge de no leidos en lista e integracion con `ConversationPage` para reset de contador.
+5. [x] Tests: servicio/controlador chat inbox + widgets de lista inbox.
 
 ### BL-011 - Safety controls
 
-1. [ ] Backend: `POST /api/v1/safety/report` (categoria + detalle) con auditoria basica.
-2. [ ] Backend: `POST /api/v1/safety/block/{dogId}` y `DELETE /api/v1/safety/block/{dogId}`.
-3. [ ] Backend: excluir perfiles bloqueados en discovery/matches/chat queries.
-4. [ ] Frontend: acciones "Reportar" y "Bloquear" en UI de perfil/conversacion.
-5. [ ] Tests: reglas de exclusión de bloqueados y paths principales de report/block.
+1. [x] Backend: `POST /api/v1/safety/report` (categoria + detalle) con auditoria basica.
+2. [x] Backend: `POST /api/v1/safety/block/{dogId}` y `DELETE /api/v1/safety/block/{dogId}`.
+3. [x] Backend: excluir perfiles bloqueados en discovery/matches/chat queries.
+4. [x] Frontend: acciones "Reportar" y "Bloquear" en UI de perfil/conversacion.
+5. [x] Tests: reglas de exclusión de bloqueados y paths principales de report/block.
 
 ## Dependencies
 
