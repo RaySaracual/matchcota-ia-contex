@@ -2,25 +2,25 @@
 
 ## Active Task
 
-Start Sprint 1
+Start Sprint 2
 
 ## Objective
 
-Levantar la base tecnica del MVP para habilitar autenticacion, discovery geoespacial y pipeline CI/CD.
+Implementar el flujo funcional de discovery geoespacial con swipe y creacion de match mutuo, integrado entre backend y frontend.
 
 ## Scope
 
 **In scope:**
 
-- Setup de soluciones backend .NET 8 por capas.
-- Setup base de app Flutter por features.
-- Modelo de datos inicial y migraciones base con PostGIS.
-- Pipeline CI/CD inicial en GitHub Actions.
+- Contratos y endpoints de discovery, swipe y matches protegidos con JWT.
+- Logica de negocio para candidatos cercanos y match mutuo.
+- Integracion de pantalla discovery Flutter con backend real.
+- Pruebas backend/frontend del flujo discovery -> swipe -> match.
 
 **Out of scope:**
 
-- Funcionalidades avanzadas de moderacion.
-- Escalado horizontal y optimizaciones de alto volumen.
+- Chat en tiempo real completo (Sprint 03).
+- Observabilidad avanzada y optimizacion de costos cloud.
 
 ## Related Spec
 
@@ -33,18 +33,15 @@ ai-workspace/specs/init-spec.md
 
 ## Progress
 
-- Inicializacion de contexto, arquitectura y sprint completada.
-- Tarea 1 de Sprint 01 completada: solucion backend .NET creada con proyectos Api/Core/Infrastructure/Services y build exitoso.
-- Tarea 2 de Sprint 01 completada: DbContext de dominio y esquema inicial Code First con migracion InitialCreate.
-- Tarea 3 de Sprint 01 completada: endpoints de auth (register/login/me) y middleware JWT Bearer habilitado.
-- Reorganizacion aplicada: backend movido a d:/RSSYSTEM/Matchcota/matchcota-backend y frontend reservado en d:/RSSYSTEM/Matchcota/matchcota-frontend.
-- Tarea 4 de Sprint 01 completada: app Flutter base creada en repositorio separado con modulos auth/profile/discovery/chat y pruebas iniciales en verde.
-- Tarea 5 de Sprint 01 completada: cliente HTTP y manejo de sesion JWT implementados en frontend para auth.
-- Tarea 6 de Sprint 01 completada: pipelines GitHub Actions para backend y frontend con build/tests minimos.
+- Sprint 01 cerrado con 6/6 tareas completadas.
+- Sprint 02 definido en ai-workspace/sprints/sprint-02.md.
+- Gap confirmado: discovery/chat en frontend aun en placeholder.
 
 ## Next Steps
 
-1. Iniciar Sprint 02 con implementacion de discovery geoespacial (BL-003).
+1. Implementar endpoint `GET /api/v1/discovery/candidates` (BL-003).
+2. Implementar endpoint `POST /api/v1/discovery/swipes` con match mutuo (BL-004).
+3. Conectar `features/discovery` en Flutter al backend y reemplazar placeholders.
 
 ## Last Updated
 
