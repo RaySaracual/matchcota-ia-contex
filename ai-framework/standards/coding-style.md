@@ -1,5 +1,7 @@
 # Coding Style Standards
 
+> Adjusted from base - derived from ai/specs/init-spec.md
+
 ## Principles
 
 - Clean Code
@@ -10,7 +12,7 @@
 
 ---
 
-# Rules
+## Rules
 
 - Use meaningful naming.
 - Avoid magic values.
@@ -22,19 +24,26 @@
 - Document complex business logic.
 - Keep modules cohesive.
 - Keep dependencies explicit.
+- Use domain language explicitly: Dog, Swipe, Match, Message, Discovery.
+- Keep API contracts immutable once released; version breaking changes.
+- Keep DTOs and entities separated in all layers.
+- Prefer async I/O end-to-end in backend services and repositories.
+- Keep Flutter widgets presentational; move orchestration to controllers/providers.
 
 ---
 
-# Naming
+## Naming
 
 - Use descriptive names.
 - Avoid abbreviations.
 - Use consistent naming conventions.
 - Keep naming aligned with domain terminology.
+- Backend: PascalCase for types, camelCase for locals, suffix Service/Repository/Dto.
+- Flutter: snake_case file names, PascalCase widget/class names.
 
 ---
 
-# Code Quality
+## Code Quality
 
 - No dead code.
 - No commented-out code.

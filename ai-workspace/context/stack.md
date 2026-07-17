@@ -1,56 +1,44 @@
 # Stack Context
 
-> Fill this file when adopting this framework for a new project.
-> This file is loaded by the agent at the start of every session.
-
----
-
 ## Frontend
 
-<!-- e.g. Angular 18, React 19, Vue 3 -->
-
-- Framework:
-- Language:
-- State Management:
-- UI Library:
-- Testing:
+- Framework: Flutter
+- Language: Dart
+- State Management: Riverpod (preferido) o BLoC
+- UI Library: Widgets nativos de Flutter + componentes feature-first
+- Testing: flutter_test + pruebas de widget por feature
 
 ## Backend
 
-<!-- e.g. .NET 8, Node.js, FastAPI -->
-
-- Framework:
-- Language:
-- ORM / Data Access:
-- Auth:
-- Testing:
+- Framework: ASP.NET Core Web API (.NET 8)
+- Language: C#
+- ORM / Data Access: Entity Framework Core + Npgsql
+- Auth: JWT Bearer
+- Testing: xUnit + pruebas de integracion para endpoints criticos
 
 ## Infrastructure
 
-- Cloud:
-- CI/CD:
-- Containerization:
-- Database:
-- Cache:
+- Cloud: VPS economico (DigitalOcean) o AWS EC2 t3.micro
+- CI/CD: GitHub Actions
+- Containerization: Docker (API + PostgreSQL/PostGIS)
+- Database: PostgreSQL + PostGIS
+- Cache: No definido para MVP (evaluar Redis en fase posterior)
 
 ## Conventions
 
-<!-- Naming, folder structure, coding rules specific to this project. -->
-
-- 
-- 
+- Estructura feature-first en frontend: auth, profile, discovery, chat.
+- Arquitectura N-Tier simplificada en backend: Controllers -> Services -> Repositories.
+- Nunca exponer coordenadas exactas de terceros; solo distancia relativa.
 
 ## Package Manager
 
-<!-- e.g. npm, pnpm, yarn, NuGet -->
+pub (Flutter), NuGet (.NET)
 
 ## Repository Structure
 
-<!-- Brief description of how the repo is organized beyond the ai/ folder. -->
-
-```
-/
-├── src/        → 
-├── tests/      → 
-└── ...
+```text
+d:/RSSYSTEM/Matchcota/
+├── spec-driven-templates/  -> Repositorio de ia-context (specs, contexto, arquitectura, sprints)
+├── matchcota-backend/      -> Repositorio backend .NET (Api/Core/Infrastructure/Services)
+└── matchcota-frontend/     -> Repositorio frontend Flutter
 ```

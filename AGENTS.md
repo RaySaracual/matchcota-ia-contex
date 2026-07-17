@@ -1,53 +1,48 @@
-# Spec-Driven Development - Instrucciones de Agente
+# Matchcota - AGENTS.md
 
-Este repositorio contiene plantillas y reglas Spec-Driven para uso generico en editores e IDEs.
+Repositorio de contexto Spec-Driven para el MVP de Matchcota (app movil de match y chat para duenos de perros con geolocalizacion).
 
-## Politica obligatoria
+## Politicas obligatorias
 
-- Todo requerimiento nuevo requiere spec aprobado antes de iniciar desarrollo.
-- Sin gate GO (validacion manual del spec), el desarrollo esta bloqueado.
-- El spec es la unica fuente de verdad para criterios de aceptacion, contratos y trazabilidad.
+- Ninguna implementacion inicia sin spec aprobado (gate GO).
+- El archivo fuente de verdad es ai-workspace/specs/init-spec.md y sus extensiones por modulo.
+- Cualquier cambio funcional debe trazarse a criterios de aceptacion de un spec.
+- Nunca exponer coordenadas exactas de ubicacion de terceros en APIs o UI.
+- Este repositorio (spec-driven-templates) es solo ia-context; no debe alojar codigo fuente de backend/frontend.
 
-### Adopcion en sistemas existentes (legacy / produccion)
+## Politicas de mantenimiento
 
-- Si no existe `ai-workspace/specs/init-spec.md` pero existe codigo, ejecutar primero analisis de codigo (Phase 0).
-- Consolidar backend + frontend (+ infra opcional) en un unico `ai-workspace/context/codebase-analysis.md`.
-- Generar `init-spec.md` por reverse engineering y marcar inferencias antes de aprobar.
-- No ejecutar implementacion sin validacion humana del spec y gate GO.
+- Mantener generators y orchestrators como unica fuente para flujo operativo.
+- Actualizar contexto, arquitectura y sprints cuando cambie stack, alcance o decisiones clave.
+- Evitar duplicidad de reglas entre ai-framework/standards.
 
-## Politica de mantenimiento
+## Flujo Spec-Driven operativo
 
-- No duplicar reglas ni templates entre carpetas.
-- Los generators en `ai-framework/generators/` son la unica fuente de verdad para producir artefactos.
-- Los orchestrators en `ai-framework/orchestrators/` definen el orden de ejecucion — no improvisar pasos.
+1. Crear/actualizar spec del modulo en ai-workspace/specs/.
+2. Ejecutar validacion con ai-workspace/agents/spec-validator-agent.md.
+3. Implementar con ai-framework/orchestrators/feature-development-orchestrator.md.
+4. Ejecutar QA con ai-framework/orchestrators/qa-orchestrator.md y publicar evidencia.
+5. Actualizar estado en ai-workspace/state/project-status.md.
 
-## Flujo Spec-Driven por feature
+## Agentes activos del proyecto
 
-1. Escribir spec en `ai-workspace/specs/<modulo>.md`.
-2. Validar gate con `ai-workspace/agents/spec-validator-agent.md` y su checklist en `ai-workspace/skills/spec-validation-skill.md`.
-3. Implementar contra criterios de aceptacion del spec siguiendo `ai-framework/orchestrators/feature-development-orchestrator.md`.
-4. Generar casos QA y publicar evidencia en `ai-workspace/evidence/`.
-5. Hacer code review trazado al spec antes de mergear.
+- ai-workspace/agents/spec-author-agent.md
+- ai-workspace/agents/spec-validator-agent.md
+- ai-workspace/agents/caveman-agent.md
+- ai-workspace/agents/discovery-geospatial-agent.md
+- ai-workspace/agents/chat-realtime-agent.md
 
-## Agentes para el ciclo de spec
+## Skills activas del proyecto
 
-- `ai-workspace/agents/spec-author-agent.md` para crear specs desde requerimientos (spec-first asistido).
-- `ai-workspace/agents/spec-validator-agent.md` para gate manual GO/NO-GO sin MCP.
-- `ai-workspace/skills/spec-authoring-skill.md` y `ai-workspace/skills/spec-validation-skill.md` como checklists operativas.
+- ai-workspace/skills/spec-authoring-skill.md
+- ai-workspace/skills/spec-validation-skill.md
+- ai-workspace/skills/geospatial-discovery-skill.md
+- ai-workspace/skills/match-chat-flow-skill.md
 
 ## Orchestrators disponibles
 
-| Instruccion al agente | Orchestrator |
-|---|---|
-| *(inicio de sesion)* | `ai-framework/orchestrators/session-init-orchestrator.md` |
-| `Run the project initialization` | `ai-framework/orchestrators/project-init-orchestrator.md` |
-| `Implement task <nombre>` | `ai-framework/orchestrators/feature-development-orchestrator.md` |
-| `There is a bug in <modulo>: <descripcion>` | `ai-framework/orchestrators/bugfix-orchestrator.md` |
-| `Validate this task` | `ai-framework/orchestrators/qa-orchestrator.md` |
-| `Prepare the release` | `ai-framework/orchestrators/release-orchestrator.md` |
-
-## Agente Caveman (ahorro de tokens)
-
-- Agente base recomendado: `ai-workspace/agents/caveman-agent.md`.
-- Rol: reducir consumo de tokens con respuestas compactas y ejecucion enfocada.
-- Limite: no reemplaza agentes de dominio para decisiones de negocio o arquitectura.
+- Run the project initialization -> ai-framework/orchestrators/project-init-orchestrator.md
+- Implement task [nombre] -> ai-framework/orchestrators/feature-development-orchestrator.md
+- There is a bug in [modulo]: [descripcion] -> ai-framework/orchestrators/bugfix-orchestrator.md
+- Validate this task -> ai-framework/orchestrators/qa-orchestrator.md
+- Prepare the release -> ai-framework/orchestrators/release-orchestrator.md

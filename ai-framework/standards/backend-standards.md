@@ -1,22 +1,24 @@
 # Backend Standards
 
+> Adjusted from base - derived from ai/specs/init-spec.md
+
 ## Principles
 
-- Clean Architecture
-- Separation of Concerns
-- Testability
-- Observability
-- Security First
+- N-Tier simplificada y cohesion por modulo.
+- Reglas de negocio centralizadas en Services.
+- Seguridad y privacidad por defecto.
+- Consultas geoespaciales eficientes.
+- Observabilidad minima desde MVP.
 
 ---
 
-# Rules
+## Rules
 
-- Separate domain/application/infrastructure.
-- Avoid business logic in controllers.
-- Use explicit validations.
-- Use dependency injection.
-- Log critical operations.
-- Keep services cohesive.
-- Protect transactional integrity.
-- Avoid tight coupling.
+- Mantener capas Controllers -> Services -> Repositories.
+- Evitar logica de negocio en controllers y en repositorios.
+- Implementar consultas discovery con PostGIS ST_DWithin y filtro de swipes previos.
+- Crear indice GIST en Dogs.location como requisito no negociable.
+- Configurar DI por interfaces en Core/Infrastructure/Services.
+- Asegurar transacciones atomicas para operaciones de swipe->match.
+- Usar cancellation tokens en operaciones I/O de API.
+- Registrar logs estructurados para auth, discovery, match y errores.

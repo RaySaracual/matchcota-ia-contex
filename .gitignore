@@ -40,6 +40,10 @@ Thumbs.db
 *.exe
 *.war
 
+# .NET build artifacts
+**/bin/
+**/obj/
+
 # Large media files
 *.mp4
 *.tiff
